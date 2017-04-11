@@ -112,6 +112,7 @@ function render() {
 
     // update the score on the scoreboard
     $("#current-score").text(currentScore());
+    $("#time-remaining").text(model.secondsRemaining);
 
     // TODO 2
     // Update the curent time remaining on the scoreboard.
@@ -144,7 +145,7 @@ function render() {
 
 
     // Set the value of the textbox
-    $("#textbox").val(model.currentAttempt);
+    $("#textbox").val(model.currentAttempt).focus();
     // TODO 3
     // Give focus to the textbox.
 
@@ -237,6 +238,11 @@ $(document).ready(function() {
         startGame();
         render();
     });
+
+    $(document).on("input", function(){
+        model.currentAttempt = $("#textbox").val();
+        }
+    );
 
     // TODO 6
     // Add another event handler with a callback function.
