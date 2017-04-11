@@ -2,7 +2,7 @@
 
 // ----------------- MODEL -----------------
 
-var GAME_DURATION = 60;
+var GAME_DURATION = 2;
 
 // all the stuff we need to keep track of
 var model = {
@@ -129,6 +129,10 @@ function render() {
     // clear stuff
     $("#allowed-letters").empty();
     $("#word-submissions").empty();
+    $("#textbox").removeClass("bad-attempt");
+    $("#textbox").attr("disabled",false);
+    $(".disallowed-letter").remove();
+
     // TODO 10
     // Add a few things to the above code block (underneath "// clear stuff").
 
@@ -161,7 +165,7 @@ function render() {
 
         // TODO 8
         // append the red letter chips to the form
-
+        $("form").append(redLetterChips);
     }
 
     // if the game is over
@@ -169,7 +173,7 @@ function render() {
     if (gameOver) {
         // TODO 9
         // disable the text box and clear its contents
-
+        $("#textbox").attr("disabled","true").val("");
     }
 }
 
@@ -286,6 +290,8 @@ function isDisallowedLetter(letter) {
     // TODO 7
     // This should return true if the letter is not an element of
     // the .allowedLetters list in the model
+    if (model.allowedLetters.indexOf(letter) == -1)
+        return true;
     return false;
 }
 
