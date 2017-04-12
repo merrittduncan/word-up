@@ -2,7 +2,7 @@
 
 // ----------------- MODEL -----------------
 
-var GAME_DURATION = 2;
+var GAME_DURATION = 20;
 
 // all the stuff we need to keep track of
 var model = {
@@ -74,7 +74,10 @@ function checkIfWordIsReal(word) {
     // make an AJAX call to the Pearson API
     $.ajax({
         // TODO 13 what should the url be?
-        url: "www.todo13.com",
+        url: "http://api.pearson.com/v2/dictionaries/lasde/entries",
+        data: {
+            headword: word
+        },
         success: function(response) {
             console.log("We received a response from Pearson!");
 
@@ -141,12 +144,14 @@ function render() {
     $("#game").show();
 
     // render the letter tiles
-    var letterChips = model.allowedLetters.map(letterChip)
+    var letterChips = model.allowedLetters.map(letterChip);
     $("#allowed-letters").append(letterChips);
 
     // TODO 11
     // Render the word submissions
 
+    var wordsSubmitted = model.wordSubmissions.map(wordSubmissionChip);
+    $("#word-submissions").append(wordsSubmitted);
 
     // Set the value of the textbox
     $("#textbox").val(model.currentAttempt).focus();
@@ -309,9 +314,9 @@ function disallowedLettersInWord(word) {
  * i.e. the word does not contain any disallowed letters
  */
 function containsOnlyAllowedLetters(word) {
-    // TODO 12
-    // Return the actual answer.
+    if (disallowedLettersInWord(word) == "[]"){
     return true;
+};
 }
 
 /**
