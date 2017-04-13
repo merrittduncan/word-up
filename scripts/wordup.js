@@ -88,10 +88,21 @@ function checkIfWordIsReal(word) {
             // Replace the 'true' below.
             // If the response contains any results, then the word is legitimate.
             // Otherwise, it is not.
-            var theAnswer = true;
+            if (response.results.length > 0){
+                var theAnswer = true;
+
+            }
+            else {
+                var theAnswer = false;};
+            console.log(theAnswer);
 
             // TODO 15
             // Update the corresponding wordSubmission in the model
+            // iterate over model.wordSubmissions and update by adding .isRealWord property and its correct value
+            for (x in model.wordSubmissions) {
+                console.log(x.word);
+                console.log(word);
+            }
 
 
             // re-render
@@ -149,7 +160,6 @@ function render() {
 
     // TODO 11
     // Render the word submissions
-
     var wordsSubmitted = model.wordSubmissions.map(wordSubmissionChip);
     $("#word-submissions").append(wordsSubmitted);
 
@@ -314,10 +324,12 @@ function disallowedLettersInWord(word) {
  * i.e. the word does not contain any disallowed letters
  */
 function containsOnlyAllowedLetters(word) {
-    if (disallowedLettersInWord(word) == "[]"){
+    var disallowedLetters = disallowedLettersInWord(word);
+    if (disallowedLetters.length == 0){
     return true;
-};
 }
+else {return false};
+};
 
 /**
  * Returns a list of 7 randomly chosen letters
